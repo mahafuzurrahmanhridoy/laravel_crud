@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ProductController;
 /*
@@ -37,4 +38,6 @@ Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin');
 
 // Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
+
 Route::resource('products', ProductController::class);
+Route::resource('categories', CategoryController::class)->except('update','edit');
