@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('sku_number');
             $table->string('description');
             $table->float('price');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

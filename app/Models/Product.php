@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use HasFactory;
     // protected $fillable = ['title', 'sku_number', 'description', 'price', 'image', 'is_active'];
     protected $guarded = [];
 }
