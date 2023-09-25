@@ -26,21 +26,21 @@ class ProductController extends Controller
         //upload image
         $image = time() . '-' . $request->title . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $image);
-        try {
-            Product::create([
-                'title' => $request->title,
-                'sku_number' => $request->sku_number,
-                'description' => $request->description,
-                'price' => $request->price,
-                'image' => $image,
-                'is_active' => $request->is_active ?? 0,
-            ]);
-            // Session::flash('status', 'Product Inserted Successfully');
-            return redirect()->route('products.index')->withStatus('Product Inserted Successfully');
-        } catch (QueryException $e) {
-            Log::error($e->getMessage());
-            return redirect()->route('products.create')->withErrors($e->getMessage())->withInput();
-        }
+        // try {
+        Product::create([
+            'title3' => $request->title,
+            'sku_number' => $request->sku_number,
+            'description' => $request->description,
+            'price' => $request->price,
+            'image' => $image,
+            'is_active' => $request->is_active ?? 0,
+        ]);
+        // Session::flash('status', 'Product Inserted Successfully');
+        return redirect()->route('products.index')->withStatus('Product Inserted Successfully');
+        // } catch (QueryException $e) {
+        //     Log::error($e->getMessage());
+        //     return redirect()->route('products.create')->withErrors($e->getMessage())->withInput();
+        // }
 
 
 
@@ -96,9 +96,30 @@ class ProductController extends Controller
         }
     }
 
+
     public function destroy($id)
     {
         Product::destroy($id);
         return redirect()->route('products.index')->withStatus('Product Deleted Successfully');
+    }
+
+    public function trash()
+    {
+        $products = Product::latest()->onlyTrashed()->paginate(10);
+        return view('admin.pages.products.trash', compact('products'));
+    }
+
+    public function restore($id)
+    {
+        $product = Product::onlyTrashed()->find($id);
+        $product->restore();
+        return redirect()->route('products.trash')->withStatus('Product restored Successfully');
+    }
+
+    public function delete($id)
+    {
+        $product = Product::onlyTrashed()->find($id);
+        $product->forceDelete();
+        return redirect()->route('products.trash')->withStatus('Product Deleted Successfully');
     }
 }
