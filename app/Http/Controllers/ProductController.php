@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProductController extends Controller
 {
@@ -41,8 +42,6 @@ class ProductController extends Controller
         //     Log::error($e->getMessage());
         //     return redirect()->route('products.create')->withErrors($e->getMessage())->withInput();
         // }
-
-
 
         // $validator = Validator::make($request->all(), [
         //     'title' => 'required|min:100',
@@ -96,7 +95,6 @@ class ProductController extends Controller
         }
     }
 
-
     public function destroy($id)
     {
         Product::destroy($id);
@@ -121,5 +119,12 @@ class ProductController extends Controller
         $product = Product::onlyTrashed()->find($id);
         $product->forceDelete();
         return redirect()->route('products.trash')->withStatus('Product Deleted Successfully');
+    }
+
+    public function downloadPdf()
+    {
+        $products = Product::latest()->take(10)->get();
+        $pdf = Pdf::loadView('admin.pages.products.pdf', compact('products'));
+        return $pdf->download('product-list.pdf');
     }
 }

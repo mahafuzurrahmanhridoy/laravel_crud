@@ -6,6 +6,7 @@
         <i class="fas fa-table me-1"></i>
         Products List <a class="btn btn-small btn-outline-primary" href="{{route('products.create')}}">Add New</a>
         <a class="btn btn-small btn-outline-info" href="{{route('products.trash')}}">Trash</a>
+        <a class="btn btn-small btn-outline-primary" href="{{route('products.pdf')}}">Pdf</a>
     </div>
     <div class="card-body">
 

@@ -43,7 +43,6 @@
                             <button class="btn btn-outline-warning"
                                 onclick="return confirm('Are you sure want to restore?')">Restore</button>
                         </form>
-
                         <form action="{{route('products.delete', [$product->id])}}" method="POST"
                             style="display: inline">
                             @csrf
