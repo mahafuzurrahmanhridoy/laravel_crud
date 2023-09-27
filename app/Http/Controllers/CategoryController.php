@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -11,7 +12,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        // dd('this is category');
+        $categories = Category::all();
+
+        return view('admin.pages.categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -19,7 +23,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.categories.create');
     }
 
     /**
@@ -27,7 +31,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->title);
+
+        Category::create([
+            'title' => $request->title,
+        ]);
+        return redirect()->route('categories.index')->withStatus('Category added Successfully');
     }
 
     /**
@@ -35,7 +44,8 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('admin.pages.categories.show', compact('category'));
     }
 
     /**
@@ -43,7 +53,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('admin.pages.categories.edit', compact('category'));
     }
 
     /**
@@ -51,7 +62,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $category = Category::findOrFail($id);
+        $category->update([
+            'title' => $request->title,
+        ]);
+        return redirect()->route('categories.index')->withStatus('Category Updated Successfully');
     }
 
     /**
@@ -59,6 +75,7 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Category::destroy($id);
+        return redirect()->route('categories.index')->withStatus('Category Deleted Successfully');
     }
 }

@@ -31,9 +31,9 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                     Products
                 </a>
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="{{route('categories.index')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Category
+                    Categories
                 </a>
                 <div class="sb-sidenav-menu-heading">Addons</div>
                 <a class="nav-link" href="charts.html">
