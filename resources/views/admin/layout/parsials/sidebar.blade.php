@@ -35,6 +35,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                     Categories
                 </a>
+                <a class="nav-link collapsed" href="{{route('sellers.index')}}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                    Sellers
+                </a>
                 <div class="sb-sidenav-menu-heading">Addons</div>
                 <a class="nav-link" href="charts.html">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>

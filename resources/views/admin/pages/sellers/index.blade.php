@@ -4,32 +4,32 @@
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
-        Categories<a class="btn btn-small btn-outline-primary" href="{{route('categories.create')}}">Add Category</a>
+        Sellers <a class="btn btn-small btn-outline-primary" href="{{route('sellers.create')}}">Add seller</a>
     </div>
-    <div class="card-body">
 
+    <div class="card-body">
         @if (session('status'))
         <div class="alert alert-success">{{ session('status') }}</div>
         @endif
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Category</th>
+                    <th>Seller</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tfoot>
             </tfoot>
             <tbody>
-                @foreach ($categories as $category)
+                @foreach ($sellers as $seller)
                 <tr>
-                    <td>{{$category->title}}</td>
+                    <td>{{$seller->shopname}}</td>
+                    <td>{{$seller->location}}</td>
                     <td>
-                        <a href="{{route('categories.edit', ['category' => $category->id])}}"
+                        <a href="{{route('sellers.edit', ['id' => $seller->id])}}"
                             class="btn btn-outline-primary">Edit</a>
-                        <a href="{{route('categories.show', ['category' => $category->id])}}"
-                            class="btn btn-outline-info">Show</a>
-                        <form action="{{route('categories.destroy', ['category' => $category->id])}}" method="POST"
+                        <a href="{{route('sellers.show', ['id' => $seller->id])}}" class="btn btn-outline-info">Show</a>
+                        <form action="{{route('sellers.destroy', ['id' => $seller->id])}}" method="POST"
                             style="display: inline">
                             @csrf
                             @method('delete')
@@ -40,9 +40,10 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $sellers->links() }}
     </div>
 </div>
 @endsection
 @section('title')
-Products List
+Sellers List
 @endsection

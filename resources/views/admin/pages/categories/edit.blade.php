@@ -16,7 +16,7 @@
                 Categories <a class="btn btn-small btn-outline-primary" href="{{route('categories.index')}}">List</a>
             </div>
             <div class="card-body">
-                <form action="{{route('categories.update',['id'=>$category->id])}}" method="POST">
+                <form action="{{route('categories.update',['category'=>$category->id])}}" method="POST">
                     @csrf
                     @method('patch')
                     <div class="row mb-3">
