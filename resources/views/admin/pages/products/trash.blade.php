@@ -4,9 +4,7 @@
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
-        Products List <a class="btn btn-small btn-outline-primary" href="{{route('products.create')}}">Add New</a>
-        <a class="btn btn-small btn-outline-info" href="{{route('products.trash')}}">Trash</a>
-        <a class="btn btn-small btn-outline-primary" href="{{route('products.pdf')}}">Pdf</a>
+        Products List <a class="btn btn-small btn-outline-primary" href="{{route('products.index')}}">Product List</a>
     </div>
     <div class="card-body">
 
@@ -38,15 +36,19 @@
                     <td><img src="{{ asset('images/' . $product->image) }}" width="50" height="50">
                     </td>
                     <td>
-                        <a href="{{route('products.edit', ['product' => $product->id])}}"
-                            class="btn btn-outline-primary">Edit</a>
-                        <a href="{{route('products.show', ['product' => $product->id])}}"
-                            class="btn btn-outline-info">Show</a>
-                        <form action="{{route('products.destroy', ['product' => $product->id])}}" method="POST"
+                        <form action="{{route('products.restore', [$product->id])}}" method="POST"
+                            style="display: inline">
+                            @csrf
+                            @method('patch')
+                            <button class="btn btn-outline-warning"
+                                onclick="return confirm('Are you sure want to restore?')">Restore</button>
+                        </form>
+                        <form action="{{route('products.delete', [$product->id])}}" method="POST"
                             style="display: inline">
                             @csrf
                             @method('delete')
-                            <button class="btn btn-outline-danger">Delete</button>
+                            <button class="btn btn-outline-danger"
+                                onclick="return confirm('This item will be delete permanently?')">Delete</button>
                         </form>
                     </td>
                 </tr>

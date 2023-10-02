@@ -73,6 +73,11 @@ Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin');
 
 // Route::resource('categories', CategoryController::class);
 
+Route::get('/products/trash', [ProductController::class, 'trash'])->name('products.trash');
+Route::patch('/products/{id}/restore', [ProductController::class, 'restore'])->name('products.restore');
+Route::delete('/products/{id}/delete', [ProductController::class, 'delete'])->name('products.delete');
+Route::get('/products/download-pdf', [ProductController::class, 'downloadPdf'])->name('products.pdf');
+
 Route::resources([
     'products' => ProductController::class,
     'categories' => CategoryController::class,
