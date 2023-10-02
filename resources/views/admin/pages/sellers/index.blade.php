@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <th>Seller</th>
+                    <th>Location</th>
                     <th>Image</th>
                     <th>Action</th>
                 </tr>
