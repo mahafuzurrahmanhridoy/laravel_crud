@@ -1,12 +1,11 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellerController;
-use App\Models\Category;
-use App\Models\Product;
 use App\Models\Seller;
 
 /*
@@ -24,7 +23,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';
 
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin');
 
@@ -69,16 +78,20 @@ Route::resources([
     'categories' => CategoryController::class,
 ]);
 
-Route::get('/sellers', [SellerController::class, 'index'])->name('sellers.index');
+Route::middleware('auth')->prefix('admin')->group(function () {
+    // Route::get('/sellers', [SellerController::class, 'index'])->name('sellers.index');
 
-Route::get('/sellers/create', [SellerController::class, 'create'])->name('sellers.create');
+    // Route::get('/sellers/create', [SellerController::class, 'create'])->name('sellers.create');
 
-Route::post('/sellers/store', [SellerController::class, 'store'])->name('sellers.store');
+    // Route::post('/sellers/store', [SellerController::class, 'store'])->name('sellers.store');
 
-Route::get('/sellers/{id}', [SellerController::class, 'show'])->name('sellers.show');
+    // Route::get('/sellers/{id}', [SellerController::class, 'show'])->name('sellers.show');
 
-Route::get('/sellers/{id}/edit', [SellerController::class, 'edit'])->name('sellers.edit');
+    // Route::get('/sellers/{id}/edit', [SellerController::class, 'edit'])->name('sellers.edit');
 
-Route::patch('/sellers/{id}', [SellerController::class, 'update'])->name('sellers.update');
+    // Route::patch('/sellers/{id}', [SellerController::class, 'update'])->name('sellers.update');
 
-Route::delete('/sellers/{id}', [SellerController::class, 'destroy'])->name('sellers.destroy');
+    // Route::delete('/sellers/{id}', [SellerController::class, 'destroy'])->name('sellers.destroy');
+
+    Route::resource('sellers', SellerController::class);
+});

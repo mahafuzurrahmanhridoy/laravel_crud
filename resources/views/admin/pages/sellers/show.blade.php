@@ -14,6 +14,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Image</th>
                     <th>Seller</th>
                     <th>Location</th>
                 </tr>
@@ -22,6 +23,8 @@
             </tfoot>
             <tbody>
                 <tr>
+                    <td><img src="{{ asset('storage/sellerimages/' . $sellers->image) }}" width="50" height="50">
+                    </td>
                     <td>{{$sellers->shopname}}</td>
                     <td>{{$sellers->location}}</td>
                 </tr>
@@ -31,5 +34,5 @@
 </div>
 @endsection
 @section('title')
-Category List
+Seller List
 @endsection

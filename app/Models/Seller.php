@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Seller extends Model
 {
     use HasFactory;
-    protected $fillable = ['shopname', 'location'];
+    protected $fillable = ['shopname', 'location', 'image'];
 }

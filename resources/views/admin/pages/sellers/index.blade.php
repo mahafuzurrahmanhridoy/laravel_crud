@@ -15,6 +15,7 @@
             <thead>
                 <tr>
                     <th>Seller</th>
+                    <th>Image</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -25,11 +26,14 @@
                 <tr>
                     <td>{{$seller->shopname}}</td>
                     <td>{{$seller->location}}</td>
+                    <td><img src="{{ asset('storage/sellerimages/' . $seller->image) }}" width="50" height="50">
+                    </td>
                     <td>
-                        <a href="{{route('sellers.edit', ['id' => $seller->id])}}"
+                        <a href="{{route('sellers.edit', ['seller' => $seller->id])}}"
                             class="btn btn-outline-primary">Edit</a>
-                        <a href="{{route('sellers.show', ['id' => $seller->id])}}" class="btn btn-outline-info">Show</a>
-                        <form action="{{route('sellers.destroy', ['id' => $seller->id])}}" method="POST"
+                        <a href="{{route('sellers.show', ['seller' => $seller->id])}}"
+                            class="btn btn-outline-info">Show</a>
+                        <form action="{{route('sellers.destroy', ['seller' => $seller->id])}}" method="POST"
                             style="display: inline">
                             @csrf
                             @method('delete')

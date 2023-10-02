@@ -22,7 +22,7 @@ class SellerUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'shopname' => 'required'. $this->id,
+            'shopname' => 'required|unique:sellers,shopname,' . $this->id,
             'location' => 'required',
         ];
     }

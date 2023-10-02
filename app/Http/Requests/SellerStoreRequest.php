@@ -22,8 +22,9 @@ class SellerStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'shopname' => 'required',
+            'shopname' => 'required|unique:sellers,shopname,' . $this->seller?->id,
             'location' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 }

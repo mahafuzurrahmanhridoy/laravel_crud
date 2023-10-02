@@ -40,6 +40,12 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-md-6 mt-3">
+                            <input class="form-control" type="file" name="image" accept="image/*" />
+                            @error('image')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="row mb-3">
                         <div class="mt-4 mb-0">

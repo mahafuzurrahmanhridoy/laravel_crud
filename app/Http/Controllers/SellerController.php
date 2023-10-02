@@ -33,11 +33,16 @@ class SellerController extends Controller
      */
     public function store(SellerStoreRequest $request)
     {
-        // dd($request->all());
+
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->storeAs('public/sellerimages', $imageName);
+        
         Seller::create([
             'shopname' => $request->shopname,
             'location' => $request->location,
+            'image' => $imageName,
         ]);
+
 
         return redirect()->route('sellers.index')->withStatus('Shop Added Successfully');
         // dd($request->all());

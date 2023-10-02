@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('shopname');
             $table->string('location');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

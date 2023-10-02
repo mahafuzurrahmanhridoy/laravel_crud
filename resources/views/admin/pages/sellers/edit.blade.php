@@ -16,7 +16,7 @@
                 Edit <a class="btn btn-small btn-outline-primary" href="{{route('sellers.index')}}">List</a>
             </div>
             <div class="card-body">
-                <form action="{{route('sellers.update',['id'=>$sellers->id])}}" method="POST">
+                <form action="{{route('sellers.update',['seller'=>$sellers->id])}}" method="POST">
                     @csrf
                     @method('patch')
                     <div class="row mb-3">
