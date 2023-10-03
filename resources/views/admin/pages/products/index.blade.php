@@ -4,9 +4,16 @@
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
-        Products List <a class="btn btn-small btn-outline-primary" href="{{route('products.create')}}">Add New</a>
+        Products List
+        @can('product-add-new')
+        <a class="btn btn-small btn-outline-primary" href="{{route('products.create')}}">Add New</a>
+        @endcan
+        @can('product-trash-list')
         <a class="btn btn-small btn-outline-info" href="{{route('products.trash')}}">Trash</a>
+        @endcan
+        @can('product-pdf-list')
         <a class="btn btn-small btn-outline-primary" href="{{route('products.pdf')}}">Pdf</a>
+        @endcan
     </div>
     <div class="card-body">
 
@@ -38,16 +45,20 @@
                     <td><img src="{{ asset('images/' . $product->image) }}" width="50" height="50">
                     </td>
                     <td>
+                        @can('product-edit')
                         <a href="{{route('products.edit', ['product' => $product->id])}}"
                             class="btn btn-outline-primary">Edit</a>
+                        @endcan
                         <a href="{{route('products.show', ['product' => $product->id])}}"
                             class="btn btn-outline-info">Show</a>
+                        @can('delete-product')
                         <form action="{{route('products.destroy', ['product' => $product->id])}}" method="POST"
                             style="display: inline">
                             @csrf
                             @method('delete')
                             <button class="btn btn-outline-danger">Delete</button>
                         </form>
+                        @endcan
                     </td>
                 </tr>
                 @endforeach

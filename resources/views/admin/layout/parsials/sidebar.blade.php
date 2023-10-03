@@ -11,43 +11,31 @@
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
                     aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Layouts
+                    Product Management
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                        <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                        <a class="nav-link" href="{{route('products.index')}}">Products</a>
+                        <a class="nav-link" href="{{route('categories.index')}}">Category</a>
+                        <a class="nav-link" href="{{route('sellers.index')}}">Seller</a>
                     </nav>
                 </div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
-                    aria-expanded="false" aria-controls="collapsePages">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Pages
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseusermanagement"
+                    aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    User Management
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <a class="nav-link collapsed" href="{{route ('products.index')}}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Products
-                </a>
-                <a class="nav-link collapsed" href="{{route('categories.index')}}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Categories
-                </a>
-                <a class="nav-link collapsed" href="{{route('sellers.index')}}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Sellers
-                </a>
-                <div class="sb-sidenav-menu-heading">Addons</div>
-                <a class="nav-link" href="charts.html">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                    Charts
-                </a>
-                <a class="nav-link" href="tables.html">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Tables
-                </a>
+
+                <div class="collapse" id="collapseusermanagement" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="#}}">Roles</a>
+                        <a class="nav-link" href="{{route('users.index')}}">User</a>
+                    </nav>
+                </div>
             </div>
         </div>
         <div class="sb-sidenav-footer">

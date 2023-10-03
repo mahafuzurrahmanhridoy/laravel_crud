@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +22,7 @@ use App\Http\Controllers\SellerController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('homepage');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -83,6 +85,9 @@ Route::resources([
 ]);
 
 Route::middleware('auth')->prefix('admin')->group(function () {
+
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
     // Route::get('/sellers', [SellerController::class, 'index'])->name('sellers.index');
 
     // Route::get('/sellers/create', [SellerController::class, 'create'])->name('sellers.create');

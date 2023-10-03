@@ -19,6 +19,7 @@ class ProductController extends Controller
 
     public function create()
     {
+        $this->authorize('products.create');
         return view('admin.pages.products.create');
     }
 
@@ -29,7 +30,7 @@ class ProductController extends Controller
         $request->image->move(public_path('images'), $image);
         // try {
         Product::create([
-            'title3' => $request->title,
+            'title' => $request->title,
             'sku_number' => $request->sku_number,
             'description' => $request->description,
             'price' => $request->price,
@@ -71,6 +72,7 @@ class ProductController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('products.edit');
         $product = Product::findOrFail($id);
         return view('admin.pages.products.edit', compact('product'));
     }
@@ -97,12 +99,14 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+
         Product::destroy($id);
         return redirect()->route('products.index')->withStatus('Product Deleted Successfully');
     }
 
     public function trash()
     {
+        $this->authorize('product-trash-list');
         $products = Product::latest()->onlyTrashed()->paginate(10);
         return view('admin.pages.products.trash', compact('products'));
     }
@@ -123,6 +127,7 @@ class ProductController extends Controller
 
     public function downloadPdf()
     {
+
         $products = Product::latest()->take(10)->get();
         $pdf = Pdf::loadView('admin.pages.products.pdf', compact('products'));
         return $pdf->download('product-list.pdf');
