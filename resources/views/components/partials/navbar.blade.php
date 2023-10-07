@@ -11,6 +11,17 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
             </ul>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button">Categories</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @foreach ($categories as $categoryId => $categoryTitle)
+                        <li><a class="dropdown-item"
+                                href="{{route('category.products', $categoryId)}}">{{$categoryTitle}}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+            </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>

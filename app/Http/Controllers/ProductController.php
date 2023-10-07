@@ -13,13 +13,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::latest()->paginate(10);
+        $products = Product::with('category')->latest()->paginate(10);
         return view('admin.pages.products.index', compact('products'));
     }
 
     public function create()
     {
-        $this->authorize('products.create');
         return view('admin.pages.products.create');
     }
 
@@ -72,7 +71,6 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $this->authorize('products.edit');
         $product = Product::findOrFail($id);
         return view('admin.pages.products.edit', compact('product'));
     }

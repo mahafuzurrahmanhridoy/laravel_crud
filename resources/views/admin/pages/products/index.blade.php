@@ -5,15 +5,15 @@
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
         Products List
-        @can('product-add-new')
+
         <a class="btn btn-small btn-outline-primary" href="{{route('products.create')}}">Add New</a>
-        @endcan
+
         @can('product-trash-list')
         <a class="btn btn-small btn-outline-info" href="{{route('products.trash')}}">Trash</a>
         @endcan
-        @can('product-pdf-list')
+
         <a class="btn btn-small btn-outline-primary" href="{{route('products.pdf')}}">Pdf</a>
-        @endcan
+
     </div>
     <div class="card-body">
 
@@ -27,6 +27,7 @@
                     <th>SKU Number</th>
                     <th>Description</th>
                     <th>price</th>
+                    <th>Category</th>
                     <th>Status</th>
                     <th>Image</th>
                     <th>Action</th>
@@ -41,14 +42,15 @@
                     <td>{{$product->sku_number}}</td>
                     <td>{{$product->description}}</td>
                     <td>{{$product->price}}</td>
+                    <td>{{$product->category->title}}</td>
                     <td>{{$product->is_active ? 'Active':'Inactive'}}</td>
                     <td><img src="{{ asset('images/' . $product->image) }}" width="50" height="50">
                     </td>
                     <td>
-                        @can('product-edit')
+
                         <a href="{{route('products.edit', ['product' => $product->id])}}"
                             class="btn btn-outline-primary">Edit</a>
-                        @endcan
+
                         <a href="{{route('products.show', ['product' => $product->id])}}"
                             class="btn btn-outline-info">Show</a>
                         @can('delete-product')
@@ -64,7 +66,10 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $products->links() }}
+
+        <div class="d-flex">
+            {{ $products->links() }}
+        </div>
     </div>
 </div>
 @endsection

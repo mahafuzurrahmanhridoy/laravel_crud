@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
@@ -20,9 +21,11 @@ use App\Models\User;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('homepage');
+Route::get('/', [PublicController::class, 'welcome'])->name('homepage');
+
+
+
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -37,6 +40,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin');
+
 
 // -------------------------Products Route--------------------
 
@@ -83,6 +87,8 @@ Route::resources([
     'products' => ProductController::class,
     'categories' => CategoryController::class,
 ]);
+Route::get('/{id}', [PublicController::class, 'categoryWiseProducts'])->name('category.products');
+
 
 Route::middleware('auth')->prefix('admin')->group(function () {
 
