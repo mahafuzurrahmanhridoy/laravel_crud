@@ -42,7 +42,7 @@
                     <td>{{$product->sku_number}}</td>
                     <td>{{$product->description}}</td>
                     <td>{{$product->price}}</td>
-                    <td>{{$product->category->title}}</td>
+                    <td>{{$product->category->title ?? 'None'}}</td>
                     <td>{{$product->is_active ? 'Active':'Inactive'}}</td>
                     <td><img src="{{ asset('images/' . $product->image) }}" width="50" height="50">
                     </td>

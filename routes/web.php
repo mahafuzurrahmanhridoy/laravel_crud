@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\UserController;
+use App\Models\Product;
 use App\Models\User;
 
 /*
@@ -23,14 +24,6 @@ use App\Models\User;
 
 Route::get('/', [PublicController::class, 'welcome'])->name('homepage');
 
-
-
-
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -40,6 +33,10 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin');
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+
 
 
 // -------------------------Products Route--------------------
@@ -78,33 +75,42 @@ Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin');
 
 // Route::resource('categories', CategoryController::class);
 
+// ------------------------- Sellers Route --------------------
+
+// Route::get('/sellers', [SellerController::class, 'index'])->name('sellers.index');
+
+// Route::get('/sellers/create', [SellerController::class, 'create'])->name('sellers.create');
+
+// Route::post('/sellers/store', [SellerController::class, 'store'])->name('sellers.store');
+
+// Route::get('/sellers/{id}', [SellerController::class, 'show'])->name('sellers.show');
+
+// Route::get('/sellers/{id}/edit', [SellerController::class, 'edit'])->name('sellers.edit');
+
+// Route::patch('/sellers/{id}', [SellerController::class, 'update'])->name('sellers.update');
+
+// Route::delete('/sellers/{id}', [SellerController::class, 'destroy'])->name('sellers.destroy');
+
+// Route::resource('sellers', SellerController::class);
+
+
 Route::middleware('auth')->prefix('admin')->group(function () {
+
 
     Route::resources([
         'products' => ProductController::class,
         'categories' => CategoryController::class,
+        'sellers' => SellerController::class,
     ]);
+
+
 
     Route::get('/products/trash', [ProductController::class, 'trash'])->name('products.trash');
     Route::patch('/products/{id}/restore', [ProductController::class, 'restore'])->name('products.restore');
     Route::delete('/products/{id}/delete', [ProductController::class, 'delete'])->name('products.delete');
     Route::get('/products/download-pdf', [ProductController::class, 'downloadPdf'])->name('products.pdf');
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-
-    // Route::get('/sellers', [SellerController::class, 'index'])->name('sellers.index');
-
-    // Route::get('/sellers/create', [SellerController::class, 'create'])->name('sellers.create');
-
-    // Route::post('/sellers/store', [SellerController::class, 'store'])->name('sellers.store');
-
-    // Route::get('/sellers/{id}', [SellerController::class, 'show'])->name('sellers.show');
-
-    // Route::get('/sellers/{id}/edit', [SellerController::class, 'edit'])->name('sellers.edit');
-
-    // Route::patch('/sellers/{id}', [SellerController::class, 'update'])->name('sellers.update');
-
-    // Route::delete('/sellers/{id}', [SellerController::class, 'destroy'])->name('sellers.destroy');
-
-    Route::resource('sellers', SellerController::class);
 });
-Route::get('/{id}', [PublicController::class, 'categoryWiseProducts'])->name('category.products');
+
+Route::get('/{slug}', [PublicController::class, 'categoryWiseProducts'])->name('category.products');
+
+Route::get('/product/{slug}', [PublicController::class, 'productDetails'])->name('product.details');

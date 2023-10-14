@@ -50,7 +50,8 @@
 <body>
 
     <header>
-        <x-partials.navbar :categories='$categories' />
+        {{-- <x-partials.navbar :categories='$categories' /> --}}
+        <x-partials.navbar />
     </header>
     <main>
         <div class="album py-5 bg-light">
@@ -68,7 +69,6 @@
     <script src="{{asset('ui/forntend//js/bootstrap.bundle.min.js')}}"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-
 
 </body>
 

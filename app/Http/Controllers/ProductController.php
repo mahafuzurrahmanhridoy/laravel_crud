@@ -8,6 +8,7 @@ use Illuminate\Database\QueryException;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -30,6 +31,7 @@ class ProductController extends Controller
         // try {
         Product::create([
             'title' => $request->title,
+            'slug' => Str::slug($request->title, '-'),
             'sku_number' => $request->sku_number,
             'description' => $request->description,
             'price' => $request->price,
@@ -82,6 +84,7 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             $product->update([
                 'title' => $request->title,
+                'slug' => Str::slug($request->title, '-'),
                 'description' => $request->description,
                 'sku_number' => $request->sku_number,
                 'price' => $request->price,

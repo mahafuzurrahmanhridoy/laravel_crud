@@ -12,16 +12,16 @@ class PublicController extends Controller
     public function welcome()
     {
         $products = Product::latest()->paginate(12);
-        $categories = Category::pluck('title', 'id')->toArray();
-        return view('welcome', compact('products', 'categories'));
+        // $categories = Category::pluck('title', 'slug')->toArray();
+        return view('welcome', compact('products'));
     }
 
-    public function categoryWiseProducts($categoryId)
+    public function categoryWiseProducts($slug)
     {
-        $category = Category::findOrFail($categoryId);
+        $category = Category::where('slug', $slug)->firstOrFail();
         $products = $category->products()->paginate(12);
-        $categories = Category::pluck('title', 'id')->toArray();
-        return view('category_wise_products', compact('products', 'categories'));
+        // $categories = Category::pluck('title', 'slug')->toArray();
+        return view('category_wise_products', compact('products'));
     }
     function home()
     {
@@ -53,9 +53,11 @@ class PublicController extends Controller
         return view('second-blog');
     }
 
-    function user()
+    public function productDetails($slug)
     {
-        $users = User::all();
-        return view('user', compact("users"));
+        $product = Product::where('slug', $slug)->firstOrFail();
+        // dd($product);
+        // $categories = Category::pluck('title', 'slug')->toArray();
+        return view('product-details', compact('product'));
     }
 }
