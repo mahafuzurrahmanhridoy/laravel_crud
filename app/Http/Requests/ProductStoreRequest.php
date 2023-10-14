@@ -22,6 +22,7 @@ class ProductStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'category_id' => 'required|exists:categories,id',
             'title' => 'required | unique:products,title',
             'sku_number' => 'required|unique:products,sku_number',
             'price' => 'required',

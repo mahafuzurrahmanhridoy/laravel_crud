@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Database\QueryException;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use App\Models\Category;
+use App\Models\Color;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 
@@ -20,16 +22,20 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('admin.pages.products.create');
+        $categories = Category::pluck('title', 'id')->toarray();
+        $colors = Color::pluck('name', 'id')->toarray();
+        return view('admin.pages.products.create', compact('categories', 'colors'));
     }
 
     public function store(ProductStoreRequest $request)
     {
+
         //upload image
         $image = time() . '-' . $request->title . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $image);
         // try {
-        Product::create([
+        $product = Product::create([
+            'category_id' => $request->category_id,
             'title' => $request->title,
             'slug' => Str::slug($request->title, '-'),
             'sku_number' => $request->sku_number,
@@ -38,6 +44,8 @@ class ProductController extends Controller
             'image' => $image,
             'is_active' => $request->is_active ?? 0,
         ]);
+
+        $product->colors()->attach($request->color_id);
         // Session::flash('status', 'Product Inserted Successfully');
         return redirect()->route('products.index')->withStatus('Product Inserted Successfully');
         // } catch (QueryException $e) {
