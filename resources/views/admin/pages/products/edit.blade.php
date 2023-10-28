@@ -68,6 +68,31 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mt-3 mb-3 mb-md-0">
+                                <select id="category_id" name="category_id" value="" class="form-control">
+                                    <option value="">Select Category</option>
+                                    @foreach ($categories as $categoryId => $categoryTitle)
+                                    <option value="{{$categoryId}}" @if ($product->category_id == $categoryId) selected
+                                        @endif> {{$categoryTitle}} </option>
+                                    @endforeach
+                                </select>
+                                <label for="category_id">Category</label>
+                                @error('category_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <label for="color">Color</label>
+                            @foreach ($colors as $colorId => $colorName)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="color_id[]" value="{{$colorId}}"
+                                    id="{{$colorId}}" @if (in_array($colorId,$selectedColorId)) checked @endif>
+                                <label class="form-check-label" for="{{$colorId}}">{{$colorName}}</label>
+                            </div>
+                            @endforeach
+                        </div>
                         <div class="col-md-6 mt-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="is_active" value="1" {{

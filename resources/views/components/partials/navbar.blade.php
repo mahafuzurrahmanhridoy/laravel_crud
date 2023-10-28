@@ -8,9 +8,18 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" aria-current="page" href={{route('homepage')}}>Home</a>
                 </li>
             </ul>
+
+            @auth
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" tabindex="-1" aria-current="page" href={{route('cart.list')}}>Cart
+                        ({{count(auth()->user()->cartProducts)}})</a>
+                </li>
+            </ul>
+            @endauth
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button">Categories</a>

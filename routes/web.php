@@ -3,13 +3,13 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\UserController;
-use App\Models\Product;
-use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -100,13 +100,20 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::patch('/products/{id}/restore', [ProductController::class, 'restore'])->name('products.restore');
     Route::delete('/products/{id}/delete', [ProductController::class, 'delete'])->name('products.delete');
     Route::get('/products/download-pdf', [ProductController::class, 'downloadPdf'])->name('products.pdf');
-    
+
     Route::resources([
         'products' => ProductController::class,
         'categories' => CategoryController::class,
         'sellers' => SellerController::class,
     ]);
+
+    Route::post('/add-to-cart', [CartController::class, 'store'])->name('cart.store');
+    Route::get('/cart-list', [CartController::class, 'index'])->name('cart.list');
+    Route::get('/check-out', [ProductController::class, 'chekout'])->name('checkout');
 });
+
+
+Route::delete('cart-products/{id}', [CartController::class, 'deleteItem'])->middleware('auth');
 
 Route::get('/{slug}', [PublicController::class, 'categoryWiseProducts'])->name('category.products');
 

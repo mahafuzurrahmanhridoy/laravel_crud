@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Color;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -44,10 +45,12 @@ class ProductController extends Controller
             'image' => $image,
             'is_active' => $request->is_active ?? 0,
         ]);
-
         $product->colors()->attach($request->color_id);
+
         // Session::flash('status', 'Product Inserted Successfully');
+
         return redirect()->route('products.index')->withStatus('Product Inserted Successfully');
+
         // } catch (QueryException $e) {
         //     Log::error($e->getMessage());
         //     return redirect()->route('products.create')->withErrors($e->getMessage())->withInput();
@@ -82,7 +85,11 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('admin.pages.products.edit', compact('product'));
+        $categories = Category::pluck('title', 'id')->toarray();
+        $colors = Color::pluck('name', 'id')->toarray();
+        $selectedColorId = $product->colors()->pluck('id')->toarray();
+        // dd($selectedColorId);
+        return view('admin.pages.products.edit', compact('product', 'categories', 'colors', 'selectedColorId'));
     }
 
     public function update(ProductUpdateRequest $request, $id)
@@ -98,6 +105,8 @@ class ProductController extends Controller
                 'price' => $request->price,
                 'is_active' => $request->is_active ?? 0,
             ]);
+            $product->colors()->sync($request->color_id);
+
             // Session::flash('status', 'Product Updated Successfully');
             return redirect()->route('products.index')->withStatus('Product Updated Successfully');
         } catch (QueryException $e) {
@@ -130,6 +139,7 @@ class ProductController extends Controller
     public function delete($id)
     {
         $product = Product::onlyTrashed()->find($id);
+        $product->colors()->detach();
         $product->forceDelete();
         return redirect()->route('products.trash')->withStatus('Product Deleted Successfully');
     }
@@ -140,5 +150,15 @@ class ProductController extends Controller
         $products = Product::latest()->take(10)->get();
         $pdf = Pdf::loadView('admin.pages.products.pdf', compact('products'));
         return $pdf->download('product-list.pdf');
+    }
+
+    public function chekout(Request $request)
+    {
+        $request->status;
+        $request->user_id;
+        $request->full_name;
+        $request->contact_number;
+        $request->shipping_address;
+        dd(request()->all());
     }
 }

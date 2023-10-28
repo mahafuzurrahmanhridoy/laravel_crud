@@ -1,5 +1,5 @@
-{{-- <x-layout :categories='$categories'> --}}
-    <x-layout>
+{{-- <x-master :categories='$categories'> --}}
+    <x-master>
         <x-slot:title>
             Camera World
             </x-slot>
@@ -13,8 +13,9 @@
                             <p class="card-text">{{$product->title}}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    <a href={{route('product.details', $product->slug) }}> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">View</button>
+                                    </a>
                                 </div>
                                 <small class="text-muted">9 mins</small>
                             </div>
@@ -26,4 +27,4 @@
                     {{ $products->links() }}
                 </div>
             </div>
-    </x-layout>
+    </x-master>
