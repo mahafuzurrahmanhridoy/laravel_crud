@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('product_title');
+            $table->string('product_title');
             $table->string('color_name')->nullable();
+            $table->integer('color_id')->nullable();
             $table->integer('qty');
             $table->decimal('unit_price');
             $table->timestamps();
